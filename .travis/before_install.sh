@@ -22,22 +22,44 @@
 #      integration 'before_install' trigger of the 'install' step.
 #
 
+#
+# installdeps <dependency tag>
+#
+# Abstraction for handling common dependency fulfillment across
+# different, but related, test targets.
+#
+installdeps()
+{
+    case "${1}" in
+
+        protoc-deps)
+            ./contrib/download_protoc.sh --destdir /usr/local
+            ;;
+
+    esac
+}
+
 # Package build machine OS-specific configuration and setup
 
 case "${TRAVIS_OS_NAME}" in
 
     linux)
+        installdeps "protoc-deps"
+
         sudo apt-get update
-        sudo apt-get install protobuf-compiler python2.7 python-pip python-virtualenv
+        sudo apt-get install python2.7 python-pip python-virtualenv
 
         ;;
 
     osx)
+        installdeps "protoc-deps"
+
         curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
         if [ -f get-pip.py ]; then
              python get-pip.py
         fi
-        HOMEBREW_NO_AUTO_UPDATE=1 brew install protobuf pyenv-virtualenv
+
+        HOMEBREW_NO_AUTO_UPDATE=1 brew install pyenv-virtualenv
 
         ;;
 
