@@ -32,7 +32,7 @@ case "${TRAVIS_OS_NAME}" in
         ;;
 
     osx)
-        HOMEBREW_NO_AUTO_UPDATE=1 brew install protobuf
+        HOMEBREW_NO_AUTO_UPDATE=1 brew install protobuf pyenv-virtualenv
 
         ;;
 
