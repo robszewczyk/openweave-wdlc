@@ -21,3 +21,19 @@
 #      This file is the script for Travis CI hosted, distributed continuous 
 #      integration 'before_install' trigger of the 'install' step.
 #
+
+# Package build machine OS-specific configuration and setup
+
+case "${TRAVIS_OS_NAME}" in
+
+    linux)
+        sudo apt-get install protobuf-compiler python2.7 python-pip python-virtualenv
+
+        ;;
+
+    osx)
+        HOMEBREW_NO_AUTO_UPDATE=1 brew install protobuf
+
+        ;;
+
+esac
