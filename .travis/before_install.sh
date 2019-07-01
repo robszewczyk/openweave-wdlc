@@ -33,6 +33,10 @@ case "${TRAVIS_OS_NAME}" in
         ;;
 
     osx)
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        if [ -f get-pip.py ]; then
+             python get-pip.py
+        fi
         HOMEBREW_NO_AUTO_UPDATE=1 brew install protobuf pyenv-virtualenv
 
         ;;
